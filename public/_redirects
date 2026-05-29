@@ -1,0 +1,15 @@
+# Cloudflare Pages — redirects
+# Docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Redirecionar URLs antigos para os novos slugs
+/empreendimentos/beato                /empreendimentos/pateo-gastao   301
+/empreendimentos/avenidas-novas       /empreendimentos/pateo-avenidas 301
+/empreendimentos/belem                /empreendimentos/pateo-belem    301
+/empreendimentos/estrela              /empreendimentos/pateo-estrela  301
+/empreendimentos/loures               /empreendimentos/pateo-loures   301
+/empreendimentos/sao-bento            /empreendimentos/pateo-bento    301
+
+# Alias úteis
+/portfolio                            /empreendimentos                301
+/about                                /marca                          301
+/contact                              /contacto                       301

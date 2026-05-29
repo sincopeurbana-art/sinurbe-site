@@ -1,0 +1,103 @@
+---
+// Manifesto — tom luxo silencioso. Curto, denso, sem corporate-speak.
+const pillars = [
+  {
+    n: "01",
+    title: "Curadoria do edificado",
+    body: "Escolhemos edifícios com história — pombalinos, gaioleiros, placa — em bairros que sabemos ler.",
+  },
+  {
+    n: "02",
+    title: "Reabilitação criteriosa",
+    body: "Cantarias, soalhos, estuques, azulejos: o que se mantém, mantém-se. O resto reinterpreta-se com o século XXI por dentro.",
+  },
+  {
+    n: "03",
+    title: "Vida contemporânea",
+    body: "Eficiência energética, isolamento, redes prediais novas. Frações desenhadas para serem habitadas, não decoradas.",
+  },
+];
+---
+<section id="sobre">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">// 01 — Manifesto</span>
+        <h2 class="h2">Edifícios com história, <span style="color:var(--accent)">frações</span> com futuro.</h2>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>A SINURBE — marca de Síncope Urbana, Unipessoal Lda — promove empreendimentos em bairros históricos de Lisboa. Compramos o edifício, reabilitamo-lo, e vendemos as frações.</p>
+        <p>Cada empreendimento começa por uma leitura do edifício e do bairro: o que tem para dar, o que tem para receber. A intervenção é depois desenhada para que ambos saiam reforçados — o lugar e a vida que nele se faz.</p>
+        <p>Operamos em ARU — Áreas de Reabilitação Urbana — onde os incentivos fiscais ao comprador são reais (IMT, IMI, IRS, IVA na reabilitação). Os nossos empreendimentos são preparados para que esses benefícios passem para quem compra.</p>
+      </div>
+      <div class="about-pillars">
+        {pillars.map(p => (
+          <div class="pillar">
+            <div class="num">// {p.n}</div>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section { padding: 110px 0; border-top: 1px solid var(--line); }
+  .section-head { margin-bottom: 64px; }
+  .section-head .left { max-width: 760px; }
+  .section-head h2 { margin-top: 16px; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 50px; }
+  }
+  .about-text p {
+    margin-bottom: 18px;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .about-text p:first-child {
+    font-size: 1.22rem;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .about-pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .pillar { background: var(--bg); padding: 30px 28px; }
+  .pillar .num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+  .pillar h3 {
+    margin: 10px 0 10px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+  .pillar p {
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+</style>

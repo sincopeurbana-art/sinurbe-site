@@ -1,0 +1,91 @@
+---
+const pilares = [
+  {
+    num: "01 / ATENDIMENTO",
+    title: "Acompanhamento personalizado.",
+    body: "Um interlocutor único do primeiro contacto à entrega das chaves. Sem call-centers, sem rodeios — diga-nos o que procura e nós tratamos do resto.",
+  },
+  {
+    num: "02 / QUALIDADE",
+    title: "Construção que se sente.",
+    body: "Materiais escolhidos um a um, acabamentos premium e supervisão técnica em cada fase. A diferença está nos detalhes que dão valor à sua casa por décadas.",
+  },
+  {
+    num: "03 / CONFIANÇA",
+    title: "Prazos cumpridos, palavra dada.",
+    body: "Calendário transparente, milestones documentadas, contrato claro. Compra com a tranquilidade de saber exatamente o que está a comprar e quando o vai receber.",
+  },
+];
+---
+
+<section class="pilares-sec">
+  <div class="container">
+    <div class="section-label">Porquê a SINURBE</div>
+    <h2 class="h2">A casa começa<br>muito antes da escritura.</h2>
+    <div class="pilares-grid">
+      {pilares.map((p) => (
+        <article class="pilar">
+          <div class="pilar-num">{p.num}</div>
+          <h3>{p.title}</h3>
+          <p>{p.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pilares-sec { padding: 100px 0; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--telha);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 48px;
+    max-width: 800px;
+  }
+
+  .pilares-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(26, 26, 26, 0.1);
+  }
+  .pilar {
+    background: var(--creme);
+    padding: 56px 40px;
+  }
+  .pilar-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--telha);
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+  .pilar h3 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+  .pilar p {
+    color: var(--cinza);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .pilares-grid { grid-template-columns: 1fr; }
+    .pilares-sec { padding: 64px 0; }
+  }
+</style>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&amp;family=Inter:wght@300;400;500&amp;display=swap');
+      .serif { font-family: 'Playfair Display', 'DejaVu Serif', 'Bodoni 72', 'Didot', serif; font-style: italic; }
+      .sans { font-family: 'Inter', 'Lato', sans-serif; }
+    </style>
+  </defs>
+  
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(311.68,352.28) rotate(276.92)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(324.95,298.44) rotate(290.77)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(350.71,249.35) rotate(304.62)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(387.48,207.84) rotate(318.46)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(433.11,176.35) rotate(332.31)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(484.96,156.68) rotate(346.15)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(540.00,150.00) rotate(360.00)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(595.04,156.68) rotate(373.85)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(646.89,176.35) rotate(387.69)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(692.52,207.84) rotate(401.54)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(729.29,249.35) rotate(415.38)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(755.05,298.44) rotate(429.23)"/>
+  <rect x="-25.79" y="-15.00" width="51.58" height="30.00" fill="#234D3D" transform="translate(768.32,352.28) rotate(443.08)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(310.00,432.60) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(310.00,529.80) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(310.00,627.00) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(310.00,724.20) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(310.00,821.40) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(770.00,432.60) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(770.00,529.80) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(770.00,627.00) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(770.00,724.20) rotate(0.00)"/>
+  <rect x="-15.00" y="-46.60" width="30.00" height="93.20" fill="#234D3D" transform="translate(770.00,821.40) rotate(0.00)"/>
+  <text class="serif" x="540.0" y="530.0" font-size="270"
+        text-anchor="middle" dominant-baseline="central"
+        font-weight="700" fill="#234D3D">PB</text>
+  <line x1="470.0" y1="760.0"
+        x2="610.0" y2="760.0"
+        stroke="#9C7A3D" stroke-width="3.5"/>
+</svg>

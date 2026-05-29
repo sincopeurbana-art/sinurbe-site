@@ -1,0 +1,256 @@
+---
+/**
+ * HeroFullscreen — banner full-screen com 3 fotos a alternar.
+ * - O texto (eyebrow + título) muda por slide, ou usa-se o conteúdo no slot quando estático.
+ * - Indicadores 01/02/03 + setas no canto inferior direito.
+ * - Watermark opcional (logo do empreendimento à direita).
+ */
+export interface Slide {
+  image: string;
+  eyebrow?: string;
+  title?: string; // pode ter HTML
+}
+export interface Props {
+  slides: Slide[];
+  /** Watermark (e.g., logo do empreendimento). */
+  watermark?: string;
+  /** Altura: "100vh" para home, "80vh" para portfolio/marca/contacto. */
+  height?: string;
+  /** Texto inicial mostrado (caso o slot esteja vazio). */
+  eyebrow?: string;
+  title?: string;
+}
+const {
+  slides,
+  watermark,
+  height = "100vh",
+  eyebrow,
+  title,
+} = Astro.props;
+const hasSlot = Astro.slots.has("default");
+---
+
+<section class="hero-fs" style={`height:${height};`}>
+  {slides.map((s, i) => (
+    <div class={`hero-fs-slide${i === 0 ? " active" : ""}`}
+         style={`background-image:url('${s.image}');`}
+         data-eyebrow={s.eyebrow ?? eyebrow ?? ""}
+         data-title={s.title ?? title ?? ""}></div>
+  ))}
+
+  {watermark && (
+    <img class="hero-fs-watermark" src={watermark} alt="" />
+  )}
+
+  <div class="hero-fs-content">
+    <div class="hero-fs-inner">
+      <div class="hero-fs-text">
+        {hasSlot ? (
+          <slot />
+        ) : (
+          <>
+            {(slides[0]?.eyebrow || eyebrow) && (
+              <div class="hero-fs-eyebrow">{slides[0]?.eyebrow ?? eyebrow}</div>
+            )}
+            {(slides[0]?.title || title) && (
+              <h1 class="hero-fs-title" set:html={slides[0]?.title ?? title} />
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+
+  {slides.length > 1 && (
+    <>
+      <div class="hero-fs-indicators">
+        {slides.map((_, i) => (
+          <span class={`hero-fs-indicator${i === 0 ? " active" : ""}`} data-idx={i}>
+            {String(i + 1).padStart(2, "0")}
+          </span>
+        ))}
+        <div class="hero-fs-progress"></div>
+      </div>
+      <div class="hero-fs-arrows">
+        <button class="hero-fs-arrow prev" aria-label="Anterior">‹</button>
+        <button class="hero-fs-arrow next" aria-label="Seguinte">›</button>
+      </div>
+    </>
+  )}
+</section>
+
+<script>
+  function initFsHero(fs: HTMLElement) {
+    const slides = fs.querySelectorAll<HTMLElement>(".hero-fs-slide");
+    const indicators = fs.querySelectorAll<HTMLElement>(".hero-fs-indicator");
+    const eyebrow = fs.querySelector<HTMLElement>(".hero-fs-eyebrow");
+    const title = fs.querySelector<HTMLElement>(".hero-fs-title");
+    if (slides.length === 0) return;
+    let cur = 0;
+    function go(i: number) {
+      slides[cur].classList.remove("active");
+      indicators[cur]?.classList.remove("active");
+      cur = (i + slides.length) % slides.length;
+      slides[cur].classList.add("active");
+      indicators[cur]?.classList.add("active");
+      const s = slides[cur];
+      if (eyebrow && s.dataset.eyebrow) eyebrow.textContent = s.dataset.eyebrow;
+      if (title && s.dataset.title) title.innerHTML = s.dataset.title;
+    }
+    fs.querySelector<HTMLButtonElement>(".hero-fs-arrow.next")
+      ?.addEventListener("click", () => go(cur + 1));
+    fs.querySelector<HTMLButtonElement>(".hero-fs-arrow.prev")
+      ?.addEventListener("click", () => go(cur - 1));
+    indicators.forEach((d, i) =>
+      d.addEventListener("click", () => go(i))
+    );
+    let timer = window.setInterval(() => go(cur + 1), 6000);
+    fs.addEventListener("mouseenter", () => clearInterval(timer));
+    fs.addEventListener("mouseleave", () => {
+      timer = window.setInterval(() => go(cur + 1), 6000);
+    });
+  }
+  document.querySelectorAll<HTMLElement>(".hero-fs").forEach(initFsHero);
+  document.body.classList.add("has-fs-hero");
+</script>
+
+<style>
+  .hero-fs {
+    position: relative;
+    min-height: 600px;
+    margin-top: -77px; /* compensa nav fixo */
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero-fs-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.4s ease-in-out;
+    z-index: 1;
+  }
+  .hero-fs-slide.active { opacity: 1; }
+  .hero-fs-slide::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+      rgba(15,15,15,0.55) 0%,
+      rgba(15,15,15,0.30) 35%,
+      rgba(15,15,15,0.45) 70%,
+      rgba(15,15,15,0.80) 100%);
+  }
+  .hero-fs-watermark {
+    position: absolute;
+    top: 50%; right: 6%;
+    transform: translateY(-50%);
+    height: 75vh;
+    max-height: 720px;
+    width: auto;
+    opacity: 0.18;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .hero-fs-content {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0 80px;
+  }
+  .hero-fs-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .hero-fs-text { max-width: 760px; color: #fff; }
+  :global(.hero-fs-eyebrow) {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    position: relative;
+    padding-top: 24px;
+  }
+  :global(.hero-fs-eyebrow)::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 40px; height: 2px;
+    background: var(--telha);
+  }
+  :global(.hero-fs-title) {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(38px, 5.2vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    color: #fff;
+    margin-bottom: 56px;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  }
+  :global(.hero-fs-title strong) { font-weight: 600; }
+
+  /* Indicadores */
+  .hero-fs-indicators {
+    position: absolute;
+    bottom: 40px;
+    right: 140px;
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 1px;
+  }
+  .hero-fs-indicator {
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 4px 2px;
+    font-weight: 500;
+  }
+  .hero-fs-indicator.active { color: var(--telha); font-weight: 700; }
+  .hero-fs-progress {
+    width: 80px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 0 6px;
+  }
+  .hero-fs-arrows {
+    position: absolute;
+    bottom: 32px;
+    right: 36px;
+    z-index: 12;
+    display: flex;
+    gap: 10px;
+  }
+  .hero-fs-arrow {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    background: rgba(15, 15, 15, 0.35);
+    color: #fff;
+    font-size: 22px;
+    transition: all 0.2s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+  }
+  .hero-fs-arrow:hover { background: var(--telha); border-color: var(--telha); }
+
+  @media (max-width: 900px) {
+    .hero-fs-content { padding: 0 var(--pad-x-mobile); }
+    .hero-fs-indicators { right: 90px; gap: 10px; }
+    .hero-fs-arrows { right: 16px; }
+    .hero-fs-progress { width: 50px; }
+    .hero-fs-watermark { display: none; }
+  }
+</style>

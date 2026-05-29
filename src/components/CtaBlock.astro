@@ -1,0 +1,53 @@
+---
+export interface Props {
+  title?: string;
+  text?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+const {
+  title = "Pronto para morar Lisboa?",
+  text = "Falamos consigo em 24 horas. Sem intermediários, sem rodeios.",
+  buttonLabel = "Contactar a SINURBE",
+  buttonHref = "/contacto",
+} = Astro.props;
+---
+
+<div class="cta-block">
+  <h2>{title}</h2>
+  <p>{text}</p>
+  <a class="btn" href={buttonHref}>{buttonLabel}</a>
+</div>
+
+<style>
+  .cta-block {
+    background: var(--telha);
+    color: var(--creme);
+    padding: 80px var(--pad-x);
+    text-align: center;
+  }
+  .cta-block h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 48px);
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    line-height: 1.05;
+  }
+  .cta-block p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+  .btn {
+    display: inline-block;
+    padding: 16px 32px;
+    background: var(--creme);
+    color: var(--preto);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: var(--preto); color: var(--creme); }
+</style>

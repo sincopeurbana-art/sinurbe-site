@@ -1,0 +1,150 @@
+---
+/**
+ * Formulário lateral de contacto (página de empreendimento).
+ * Submete via Web3Forms — basta definir PUBLIC_WEB3FORMS_KEY no .env.
+ */
+import WhatsappButton from "./WhatsappButton.astro";
+
+export interface Props {
+  empName: string;
+  title?: string;
+  subtitle?: string;
+}
+const {
+  empName,
+  title = `Pedir informações<br>${empName}`,
+  subtitle = "Brochura, plantas, condições e visita.",
+} = Astro.props;
+
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
+const subject = `[Site SINURBE] Pedido — ${empName}`;
+const defaultMessage = `Olá! Quero ser contactado sobre o empreendimento ${empName}.`;
+---
+
+<aside class="contact-card">
+  <h3 set:html={title} />
+  <p class="subtitle">{subtitle}</p>
+
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value={web3formsKey} />
+    <input type="hidden" name="subject" value={subject} />
+    <input type="hidden" name="from_name" value="Site SINURBE" />
+    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+    <div class="form-field">
+      <label>Email</label>
+      <input type="email" name="email" required placeholder="seu@email.pt" />
+    </div>
+    <div class="form-field">
+      <label>Nome</label>
+      <input type="text" name="nome" placeholder="O seu nome" />
+    </div>
+    <div class="form-field">
+      <label>Telemóvel <span class="optional">opcional</span></label>
+      <input type="tel" name="telemovel" placeholder="+351 9XX XXX XXX" />
+    </div>
+    <div class="form-field">
+      <label>Mensagem</label>
+      <textarea name="mensagem" rows="3">{defaultMessage}</textarea>
+    </div>
+    <button type="submit" class="btn-submit">Enviar pedido</button>
+  </form>
+
+  <WhatsappButton empName={empName} />
+
+  <p class="privacy">
+    Resposta em 24 h úteis. Os seus dados ficam connosco — não partilhamos com terceiros.
+  </p>
+</aside>
+
+<style>
+  .contact-card {
+    background: var(--branco);
+    padding: 32px 28px;
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: 4px;
+    position: sticky;
+    top: 100px;
+  }
+  .contact-card h3 {
+    font-family: var(--font-display);
+    font-size: 20px;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: var(--cinza);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .form-field {
+    display: block;
+    margin-bottom: 12px;
+  }
+  .form-field label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cinza);
+    margin-bottom: 6px;
+  }
+  .form-field .optional {
+    text-transform: none;
+    color: var(--cinza);
+  }
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    border: 1px solid rgba(26,26,26,0.2);
+    border-radius: 3px;
+    background: var(--creme);
+    color: var(--preto);
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--telha);
+  }
+  .form-field textarea { resize: vertical; min-height: 88px; }
+
+  .btn-submit {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--preto);
+    color: var(--creme);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-submit:hover { background: var(--telha); }
+
+  .privacy {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    color: var(--cinza);
+    line-height: 1.5;
+    margin-top: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  @media (max-width: 900px) {
+    .contact-card { position: static; }
+  }
+</style>

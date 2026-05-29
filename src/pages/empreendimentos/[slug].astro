@@ -1,0 +1,168 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+import HeroFullscreen from "../../components/HeroFullscreen.astro";
+import CaracteristicasIcons from "../../components/CaracteristicasIcons.astro";
+import ContactCard from "../../components/ContactCard.astro";
+import Gallery from "../../components/Gallery.astro";
+import Footer from "../../components/Footer.astro";
+import { empreendimentos, getEmpreendimento } from "../../data/empreendimentos";
+
+export function getStaticPaths() {
+  return empreendimentos.map((ev) => ({
+    params: { slug: ev.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const ev = getEmpreendimento(slug!);
+if (!ev) {
+  return Astro.redirect("/empreendimentos");
+}
+
+const heroSlides = ev.heroPhotos.map((image) => ({ image }));
+const watermark = `/logos/${ev.slug}-branco.svg`;
+const masterLogo = `/logos/${ev.slug}-master-nobg.svg`;
+---
+
+<Base
+  title={`${ev.name} — ${ev.location} | SINURBE`}
+  description={`${ev.tagline} ${ev.description.slice(0, 120)}...`}
+>
+  <Nav overHero={true} pathname={Astro.url.pathname} />
+
+  <HeroFullscreen
+    slides={heroSlides}
+    watermark={watermark}
+    height="100vh"
+  >
+    <div class="hero-fs-eyebrow">{ev.location} · {ev.status}</div>
+    <h1 class="hero-fs-title">
+      {ev.name}.<br>
+      <span set:html={ev.tagline.replace(/(\w+)\.?$/, "<strong>$1</strong>")} />
+    </h1>
+    <p class="hero-fs-sub">{ev.tagline}</p>
+    <div class="hero-fs-buttons">
+      <a class="btn-fs" href={`#contact-${ev.slug}`}>{ev.ctaLabel}</a>
+    </div>
+  </HeroFullscreen>
+
+  <section class="ev-content">
+    <div class="container-wide">
+      <div class="info-with-contact">
+        <div class="content-col">
+          <div class="ev-name-row">
+            <div class="ev-logo-stamp">
+              <img src={masterLogo} alt={`Logo ${ev.name}`} />
+            </div>
+            <div class="ev-name-text">
+              <div class="section-label">O empreendimento</div>
+              <h2 class="ev-h2">{ev.name}</h2>
+            </div>
+          </div>
+
+          <p class="ev-desc">{ev.description}</p>
+
+          <div class="section-label" style="margin-top:8px;">Características</div>
+          <CaracteristicasIcons items={ev.caracteristicas} />
+
+          <div class="section-label" style="margin-top:32px;">Galeria</div>
+          <h2 class="ev-h3">Do exterior aos detalhes.</h2>
+          <Gallery photos={ev.galleryPhotos} />
+
+          {!ev.realProject && (
+            <div class="disclaimer">
+              Imagens ilustrativas geradas por IA, com base no projeto de arquitetura aprovado pela CML/CCDR-LVT.
+              As imagens finais do projeto estarão disponíveis após a conclusão de obra.
+            </div>
+          )}
+        </div>
+
+        <div id={`contact-${ev.slug}`}>
+          <ContactCard empName={ev.name} title={`${ev.ctaLabel}<br>${ev.name}`} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  :global(.hero-fs-sub) {
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 560px;
+    margin-bottom: 44px;
+    font-weight: 300;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  }
+  :global(.hero-fs-buttons) {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .ev-content {
+    padding: 56px 0;
+  }
+  .info-with-contact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 64px;
+    align-items: start;
+  }
+  .ev-name-row {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 24px;
+  }
+  .ev-logo-stamp {
+    flex-shrink: 0;
+    width: 200px;
+  }
+  .ev-logo-stamp img { width: 100%; height: auto; max-height: 240px; display: block; }
+  .ev-name-text { min-width: 0; flex: 1; }
+  .ev-h2 {
+    font-family: var(--font-display);
+    font-size: 32px;
+    margin: 0;
+    letter-spacing: -0.5px;
+    line-height: 1.05;
+  }
+  .ev-h3 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+  .ev-desc {
+    font-size: 16px;
+    color: var(--preto);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 640px;
+  }
+
+  .disclaimer {
+    background: var(--creme-escuro);
+    padding: 14px 20px;
+    margin-top: 48px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--cinza);
+    line-height: 1.55;
+    border-left: 2px solid var(--telha);
+    letter-spacing: 0.2px;
+    opacity: 0.85;
+  }
+
+  @media (max-width: 900px) {
+    .info-with-contact { grid-template-columns: 1fr; gap: 32px; }
+    .ev-name-row { flex-direction: column; align-items: flex-start; }
+    .ev-logo-stamp { width: 160px; }
+  }
+</style>

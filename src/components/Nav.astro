@@ -1,0 +1,153 @@
+---
+export interface Props {
+  /** Quando true, o nav é transparente sobre o hero e fica sólido ao fazer scroll. */
+  overHero?: boolean;
+  /** Pathname atual para destacar o link ativo. */
+  pathname?: string;
+}
+const { overHero = false, pathname = "/" } = Astro.props;
+
+const links = [
+  { href: "/", label: "Início", match: ["/"] },
+  { href: "/empreendimentos", label: "Empreendimentos", match: ["/empreendimentos"] },
+  { href: "/marca", label: "A Marca", match: ["/marca"] },
+  { href: "/contacto", label: "Contacto", match: ["/contacto"] },
+];
+
+function isActive(matches: string[]) {
+  return matches.some((m) =>
+    m === "/" ? pathname === "/" : pathname.startsWith(m)
+  );
+}
+---
+
+<nav class="nav" data-over-hero={overHero}>
+  <div class="nav-inner">
+    <a class="logo" href="/" aria-label="SINURBE">SIN<span class="urbe">URBE</span></a>
+
+    <div class="nav-right">
+      <ul class="nav-links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href} class={isActive(l.match) ? "active" : ""}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <a class="nav-phone" href="tel:+351924184141">
+        <span class="num">+351 924 184 141</span>
+        <span class="sub">(chamada para rede móvel nacional)</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const nav = document.querySelector<HTMLElement>(".nav");
+  if (nav && nav.dataset.overHero === "true") {
+    const onScroll = () => {
+      if (window.scrollY > 60) document.body.classList.add("scrolled");
+      else document.body.classList.remove("scrolled");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+</script>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(245, 241, 234, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: var(--z-nav);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .nav-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 22px var(--pad-x);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 32px;
+    letter-spacing: -1.28px;
+    line-height: 0.85;
+    color: var(--preto);
+    text-transform: uppercase;
+  }
+  .logo .urbe { color: var(--telha); }
+
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--preto);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--telha); }
+
+  .nav-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .nav-phone .num {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--preto);
+    letter-spacing: 0.3px;
+  }
+  .nav-phone .sub {
+    font-size: 10px;
+    color: var(--cinza);
+    letter-spacing: 0.5px;
+  }
+
+  /* Nav transparente sobre o hero */
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] {
+    background: rgba(245, 241, 234, 0);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .logo,
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-links a:not(.active) { color: #FFF; }
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .logo .urbe,
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-links a.active { color: var(--telha-claro); }
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-phone .num { color: #FFF; }
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-phone .sub { color: rgba(255, 255, 255, 0.65); }
+
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] {
+    background: rgba(245, 241, 234, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  }
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .logo,
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-links a:not(.active) { color: var(--preto); }
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .logo .urbe,
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-links a.active { color: var(--telha); }
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-phone .num { color: var(--preto); }
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-phone .sub { color: var(--cinza); }
+
+  @media (max-width: 900px) {
+    .nav-inner { padding: 16px var(--pad-x-mobile); }
+    .nav-links { gap: 20px; }
+    .nav-phone { display: none; }
+    .logo { font-size: 26px; }
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+
+const empreendimentos = [
+  { slug: "pateo-gastao", label: "Páteo Gastão · Beato" },
+  { slug: "pateo-belem", label: "Páteo Belém" },
+  { slug: "pateo-estrela", label: "Páteo Estrela" },
+  { slug: "pateo-loures", label: "Páteo Loures" },
+  { slug: "pateo-avenidas", label: "Páteo Avenidas" },
+  { slug: "pateo-bento", label: "Páteo Bento · São Bento" },
+];
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="logo">SIN<span class="urbe">URBE</span></div>
+      <p>Reabilitação urbana premium em Lisboa.<br>Síncope Urbana, Lda · NIPC 519 359 518</p>
+      <h4>Siga-nos</h4>
+      <SocialLinks variant="dark" />
+    </div>
+
+    <div>
+      <h4>Empreendimentos</h4>
+      <ul>
+        {empreendimentos.map((e) => (
+          <li><a href={`/empreendimentos/${e.slug}`}>{e.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4>Marca</h4>
+      <ul>
+        <li><a href="/marca">Sobre</a></li>
+        <li><a>Notícias</a></li>
+        <li><a>Imprensa</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>Av. Liberdade, 224</li>
+        <li>1250-148 Lisboa</li>
+        <li><a href="mailto:comercial@sinurbe.pt">comercial@sinurbe.pt</a></li>
+        <li><a href="tel:+351924184141">+351 924 184 141</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© SINURBE {year} · Síncope Urbana, Lda</span>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--preto);
+    color: var(--creme);
+    padding: 64px var(--pad-x) 32px;
+    margin-top: 80px;
+  }
+  .footer-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--creme);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: -1.1px;
+  }
+  .logo .urbe { color: var(--telha-claro); }
+
+  footer h4 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    margin: 20px 0 16px;
+    letter-spacing: 0.3px;
+  }
+  footer h4:first-child { margin-top: 0; }
+
+  footer p, footer li {
+    font-size: 14px;
+    color: rgba(245, 241, 234, 0.7);
+    line-height: 1.8;
+    list-style: none;
+  }
+  footer a {
+    color: rgba(245, 241, 234, 0.7);
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--telha-claro); }
+
+  .footer-bottom {
+    max-width: var(--container);
+    margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(245, 241, 234, 0.15);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(245, 241, 234, 0.4);
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 900px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+    footer { padding: 48px var(--pad-x-mobile) 24px; }
+  }
+  @media (max-width: 600px) {
+    .footer-inner { grid-template-columns: 1fr; }
+  }
+</style>

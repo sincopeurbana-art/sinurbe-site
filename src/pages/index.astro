@@ -1,0 +1,130 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import HeroFullscreen from "../components/HeroFullscreen.astro";
+import EmpreendimentoCard from "../components/EmpreendimentoCard.astro";
+import Pilares from "../components/Pilares.astro";
+import CtaBlock from "../components/CtaBlock.astro";
+import Footer from "../components/Footer.astro";
+import { empreendimentos } from "../data/empreendimentos";
+
+const slides = [
+  {
+    image: "/fotos/pateo-gastao/sala-t4-triplex.png",
+    eyebrow: "Rigor e profissionalismo",
+    title: "A garantia do melhor <strong>atendimento</strong><br>e acompanhamento.",
+  },
+  {
+    image: "/fotos/pateo-gastao/aguas-furtadas.png",
+    eyebrow: "Promoção imobiliária premium",
+    title: "Reabilitação urbana<br>de <strong>alta exigência</strong>, em Lisboa.",
+  },
+  {
+    image: "/fotos/pateo-gastao/imagem-frente-predio.png",
+    eyebrow: "Lisboa · Portfólio SINURBE",
+    title: "Seis empreendimentos.<br><strong>Um único padrão</strong> de qualidade.",
+  },
+];
+---
+
+<Base
+  title="SINURBE — Reabilitação urbana premium em Lisboa"
+  description="Promoção imobiliária premium em Lisboa. Empreendimentos próprios em Beato, Belém, Estrela, Loures, Avenidas Novas e São Bento. Atendimento personalizado e construção de excelência."
+>
+  <Nav overHero={true} pathname={Astro.url.pathname} />
+
+  <HeroFullscreen slides={slides} height="100vh">
+    <div class="hero-fs-eyebrow">{slides[0].eyebrow}</div>
+    <h1 class="hero-fs-title" set:html={slides[0].title} />
+    <a class="btn-fs" href="/empreendimentos">Veja os empreendimentos</a>
+  </HeroFullscreen>
+
+  <!-- Empreendimentos -->
+  <section class="ev-grid-sec">
+    <div class="container">
+      <div class="ev-grid-head">
+        <div>
+          <div class="section-label">Portfólio</div>
+          <h2 class="ev-grid-title">Empreendimentos <span style="color:var(--telha);">SINURBE</span>.</h2>
+        </div>
+        <p class="ev-grid-desc">
+          Cada projeto responde ao seu lugar — com o mesmo padrão técnico e o mesmo cuidado no atendimento.
+        </p>
+      </div>
+      <div class="portfolio-grid">
+        {empreendimentos.map((ev) => <EmpreendimentoCard ev={ev} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilares -->
+  <Pilares />
+
+  <!-- CTA -->
+  <CtaBlock />
+
+  <Footer />
+</Base>
+
+<style>
+  /* CTA do hero (botão principal) */
+  :global(.btn-fs) {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: var(--telha);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  :global(.btn-fs:hover) {
+    background: #fff;
+    color: var(--telha);
+    transform: translateX(4px);
+  }
+  :global(.btn-fs::after) { content: "→"; font-size: 18px; }
+
+  /* Grelha dos empreendimentos */
+  .ev-grid-sec {
+    padding: 40px 0 80px;
+    background: var(--creme-escuro);
+  }
+  .ev-grid-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .ev-grid-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1;
+    letter-spacing: -0.5px;
+    margin: 0;
+  }
+  .ev-grid-desc {
+    font-size: 15px;
+    color: var(--cinza);
+    max-width: 420px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 1100px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+  }
+</style>

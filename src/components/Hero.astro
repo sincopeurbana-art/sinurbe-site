@@ -1,0 +1,119 @@
+---
+// Hero — tónica luxo silencioso. Foto interior reabilitado + claim minimal.
+// Sem stats — preferência editorial 'sem números fictícios'.
+---
+<header class="hero">
+  <div class="hero-media" aria-hidden="true">
+    <div class="hero-img"></div>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="container hero-inner">
+    <span class="eyebrow">// Promoção imobiliária · Lisboa</span>
+    <h1 class="h1">
+      <span class="break">Habitar</span>
+      <span class="break"><span class="accent">Lisboa</span>.</span>
+    </h1>
+    <p class="lead">
+      Empreendimentos próprios em bairros históricos. Edifícios com herança,
+      frações com futuro.
+    </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="/empreendimentos">Ver empreendimentos</a>
+      <a class="btn-ghost" href="/#contacto">Lista de interessados</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    color: var(--bg);
+    overflow: hidden;
+    margin-top: -1px;
+  }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    background: #2a2520 url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2200&q=80&fit=crop&auto=format') center/cover no-repeat;
+    transform: scale(1.02);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(26,26,26,.55) 0%, rgba(26,26,26,.25) 40%, rgba(26,26,26,.78) 100%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding: 120px 32px 100px;
+    max-width: var(--container);
+  }
+  .hero .eyebrow {
+    color: var(--bg);
+    opacity: 0.82;
+  }
+  .h1 {
+    color: var(--bg);
+    margin-top: 28px;
+    font-size: clamp(3.4rem, 8vw, 7rem);
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+  }
+  .h1 .break { display: block; }
+  .h1 .accent { color: var(--accent); }
+  .lead {
+    color: rgba(245,241,234,0.85);
+    margin-top: 30px;
+    max-width: 48ch;
+    font-size: 1.18rem;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    margin-top: 44px;
+    flex-wrap: wrap;
+  }
+  .btn-primary,
+  .btn-ghost {
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.96rem;
+    font-weight: 500;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary {
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--bg);
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .btn-ghost {
+    color: var(--bg);
+    border: 1px solid rgba(245,241,234,.55);
+  }
+  .btn-ghost:hover {
+    border-color: var(--bg);
+    background: rgba(245,241,234,.08);
+  }
+  @media (max-width: 700px) {
+    .hero { min-height: 80vh; }
+    .hero-inner { padding: 100px 24px 80px; }
+    .lead { font-size: 1.05rem; }
+  }
+</style>

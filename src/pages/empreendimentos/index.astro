@@ -1,0 +1,63 @@
+---
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+import HeroFullscreen from "../../components/HeroFullscreen.astro";
+import EmpreendimentoCard from "../../components/EmpreendimentoCard.astro";
+import Footer from "../../components/Footer.astro";
+import { empreendimentos } from "../../data/empreendimentos";
+
+const slides = [
+  {
+    image: "/fotos/pateo-gastao/imagem-frente-predio.png",
+    eyebrow: "Portfólio · Lisboa",
+    title: "Seis empreendimentos.<br><strong>Um único padrão</strong>.",
+  },
+  {
+    image: "/fotos/pateo-belem/area-piscina-por-do-sol.png",
+    eyebrow: "Promoção imobiliária premium",
+    title: "Cada projeto<br>responde ao <strong>seu lugar</strong>.",
+  },
+  {
+    image: "/fotos/pateo-estrela/duplex-vista-rio.png",
+    eyebrow: "Reabilitação urbana",
+    title: "Vistas sobre o <strong>Tejo</strong>,<br>endereços únicos.",
+  },
+];
+---
+
+<Base
+  title="Empreendimentos SINURBE — 6 endereços em Lisboa"
+  description="Portfólio SINURBE: 6 empreendimentos premium em Lisboa — Beato, Belém, Estrela, Loures, Avenidas Novas e São Bento. Reabilitação urbana com vista, qualidade e atendimento."
+>
+  <Nav overHero={true} pathname={Astro.url.pathname} />
+
+  <HeroFullscreen slides={slides} height="80vh" />
+
+  <section class="ev-list-sec">
+    <div class="container">
+      <div class="portfolio-grid">
+        {empreendimentos.map((ev) => <EmpreendimentoCard ev={ev} />)}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  .ev-list-sec {
+    padding: 64px 0 100px;
+    background: var(--creme-escuro);
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 1100px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+  }
+</style>

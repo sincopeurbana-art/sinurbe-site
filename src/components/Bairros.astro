@@ -1,0 +1,109 @@
+---
+// Bairros onde a SINURBE atua. Quando vier do Notion, calcular contagens reais.
+// Por agora: lista curada manual.
+export interface Bairro {
+  nome: string;
+  descricao: string;
+  empreendimentos?: number;
+  estado?: string;
+}
+
+const bairros: Bairro[] = [
+  { nome: "Chiado",         descricao: "Pombalino, placa nobre, comércio antigo.",   empreendimentos: 1 },
+  { nome: "Príncipe Real",  descricao: "Burguês oitocentista entre jardins.",        estado: "Em prospeção" },
+  { nome: "Alfama",         descricao: "Casario popular, miradouro, fado.",          estado: "Em prospeção" },
+  { nome: "Estrela",        descricao: "Gaioleiro residencial, larguras generosas.", estado: "Em prospeção" },
+  { nome: "Bairro Alto",    descricao: "Antigo bairro alto, vida nocturna histórica.", estado: "Em prospeção" },
+  { nome: "Beato",          descricao: "Industrial reconvertido, novo eixo criativo.", empreendimentos: 1 },
+];
+---
+<section id="bairros">
+  <div class="container">
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">// 02 — Onde estamos</span>
+        <h2 class="h2">Os bairros que <span style="color:var(--accent)">escolhemos</span>.</h2>
+        <p class="lead-sub">Operamos só em zonas históricas com licenciamento exigente e
+          incentivos fiscais à reabilitação. É onde a SINURBE faz diferença.</p>
+      </div>
+    </div>
+
+    <div class="bairros-grid">
+      {bairros.map(b => (
+        <article class={`bairro ${b.empreendimentos ? 'is-active' : 'is-prospect'}`}>
+          <div class="b-head">
+            <h3>{b.nome}</h3>
+            {b.empreendimentos ? (
+              <span class="b-tag">{b.empreendimentos} empreendimento{b.empreendimentos > 1 ? 's' : ''}</span>
+            ) : (
+              <span class="b-tag b-tag-muted">{b.estado}</span>
+            )}
+          </div>
+          <p>{b.descricao}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  section { padding: 110px 0; border-top: 1px solid var(--line); background: var(--bg-deep); }
+  .section-head { margin-bottom: 56px; }
+  .section-head .left { max-width: 720px; }
+  .section-head h2 { margin-top: 16px; }
+  .lead-sub { margin-top: 22px; color: var(--ink-soft); font-size: 1.08rem; max-width: 60ch; }
+
+  .bairros-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 900px) { .bairros-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .bairros-grid { grid-template-columns: 1fr; } }
+
+  .bairro {
+    background: var(--bg);
+    padding: 28px 26px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .bairro:hover { background: var(--bg-deep); }
+  .b-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .bairro h3 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .bairro p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .b-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--bg);
+    white-space: nowrap;
+  }
+  .b-tag-muted {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+  }
+</style>

@@ -1,0 +1,5 @@
+Coloca aqui:
+- capa.jpg          (1600x1200 mínimo)
+- galeria-01.jpg
+- galeria-02.jpg
+- ... (numera sequencialmente)

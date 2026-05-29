@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 600" width="1800" height="600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,700&amp;family=Inter:wght@300;400;500&amp;display=swap');
+      .serif { font-family: 'Playfair Display', 'DejaVu Serif', 'Bodoni 72', 'Didot', serif; font-style: italic; }
+      .sans { font-family: 'Inter', 'Lato', sans-serif; }
+    </style>
+  </defs>
+  
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(212.13,205.69) rotate(280.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(228.76,160.00) rotate(300.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(260.01,122.75) rotate(320.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(302.12,98.44) rotate(340.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(350.00,90.00) rotate(360.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(397.88,98.44) rotate(380.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(439.99,122.75) rotate(400.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(471.24,160.00) rotate(420.00)"/>
+  <rect x="-23.43" y="-10.00" width="46.87" height="20.00" fill="#8C7134" transform="translate(487.87,205.69) rotate(440.00)"/>
+  <rect x="-10.00" y="-45.33" width="20.00" height="90.67" fill="#8C7134" transform="translate(210.00,278.33) rotate(0.00)"/>
+  <rect x="-10.00" y="-45.33" width="20.00" height="90.67" fill="#8C7134" transform="translate(210.00,371.00) rotate(0.00)"/>
+  <rect x="-10.00" y="-45.33" width="20.00" height="90.67" fill="#8C7134" transform="translate(210.00,463.67) rotate(0.00)"/>
+  <rect x="-10.00" y="-45.33" width="20.00" height="90.67" fill="#8C7134" transform="translate(490.00,278.33) rotate(0.00)"/>
+  <rect x="-10.00" y="-45.33" width="20.00" height="90.67" fill="#8C7134" transform="translate(490.00,371.00) rotate(0.00)"/>
+  <rect x="-10.00" y="-45.33" width="20.00" height="90.67" fill="#8C7134" transform="translate(490.00,463.67) rotate(0.00)"/>
+  <text class="serif" x="350" y="320" font-size="160"
+        text-anchor="middle" dominant-baseline="central"
+        font-weight="700" fill="#8C7134">PB</text>
+  <line x1="305.0" y1="470"
+        x2="395.0" y2="470"
+        stroke="#9C7A3D" stroke-width="2.5"/>
+  <text class="serif" x="720" y="280" font-size="86"
+        text-anchor="start" dominant-baseline="central"
+        font-weight="400" letter-spacing="6" fill="#8C7134">PÁTEO BENTO</text>
+  <text class="sans" x="720" y="380" font-size="22"
+        text-anchor="start" dominant-baseline="central"
+        font-weight="400" letter-spacing="5" fill="#6E6E6E">SÃO BENTO · LISBOA</text>
+</svg>

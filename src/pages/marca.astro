@@ -1,0 +1,121 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import HeroFullscreen from "../components/HeroFullscreen.astro";
+import Footer from "../components/Footer.astro";
+import CtaBlock from "../components/CtaBlock.astro";
+
+const slides = [
+  { image: "/fotos/pateo-estrela/duplex-sala-vista-rio.png" },
+  { image: "/fotos/pateo-belem/sala.png" },
+  { image: "/fotos/pateo-gastao/sala-t4-triplex.png" },
+];
+---
+
+<Base
+  title="A Marca — SINURBE | Síncope Urbana"
+  description="SINURBE é a marca comercial da Síncope Urbana. SIN do grego «syn», união. URBE do latim, cidade. Marca de reabilitação urbana premium em Lisboa."
+>
+  <Nav overHero={true} pathname={Astro.url.pathname} />
+
+  <HeroFullscreen slides={slides} height="80vh">
+    <div class="hero-fs-eyebrow">A Marca</div>
+    <h1 class="hero-fs-title">
+      SIN<strong>URBE</strong>.<br>
+      O encontro entre<br>
+      <strong>história</strong> e cidade.
+    </h1>
+    <p class="hero-fs-sub">
+      Marca comercial da Síncope Urbana. SIN do grego «syn», união. URBE do latim, cidade.
+      Entre as duas, a pausa rítmica que devolve edifícios à Lisboa contemporânea.
+    </p>
+  </HeroFullscreen>
+
+  <section class="marca-content">
+    <div class="container">
+      <div class="section-label">A firma</div>
+      <h2 class="h2">Quem somos.<br>Onde estamos.</h2>
+
+      <div class="ficha">
+        <div class="ficha-item">
+          <div class="ficha-label">Firma</div>
+          <div class="ficha-value">Síncope Urbana, Lda</div>
+        </div>
+        <div class="ficha-item">
+          <div class="ficha-label">NIPC</div>
+          <div class="ficha-value">519 359 518</div>
+        </div>
+        <div class="ficha-item">
+          <div class="ficha-label">Sede</div>
+          <div class="ficha-value">Av. Liberdade, 224 · 2º<br>1250-148 Lisboa</div>
+        </div>
+        <div class="ficha-item">
+          <div class="ficha-label">Gerente</div>
+          <div class="ficha-value">Eduardo Rogério</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBlock
+    title="Quer saber mais?"
+    text="Visite os nossos empreendimentos ou fale connosco diretamente."
+    buttonLabel="Ver empreendimentos"
+    buttonHref="/empreendimentos"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  :global(.hero-fs-sub) {
+    color: rgba(255,255,255,0.9);
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 620px;
+    margin-bottom: 0;
+    font-weight: 300;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  }
+
+  .marca-content {
+    padding: 80px 0;
+  }
+  .h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 48px;
+    max-width: 800px;
+  }
+
+  .ficha {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(26, 26, 26, 0.1);
+  }
+  .ficha-item {
+    background: var(--creme);
+    padding: 32px 24px;
+  }
+  .ficha-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cinza);
+    margin-bottom: 8px;
+  }
+  .ficha-value {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--preto);
+    letter-spacing: -0.3px;
+    line-height: 1.4;
+  }
+  @media (max-width: 900px) {
+    .ficha { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

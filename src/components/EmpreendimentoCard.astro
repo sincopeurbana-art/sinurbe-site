@@ -1,0 +1,194 @@
+---
+import type { Empreendimento } from "../data/empreendimentos";
+
+export interface Props {
+  ev: Empreendimento;
+}
+const { ev } = Astro.props;
+const url = `/empreendimentos/${ev.slug}`;
+---
+
+<a class="card" href={url}>
+  <div class="card-img-wrap">
+    {ev.cardPhotos.map((src, i) => (
+      <div class={`card-mini-slide${i === 0 ? " active" : ""}`}
+           style={`background-image:url('${src}');`}></div>
+    ))}
+    <button class="card-mini-arrow prev" type="button"
+      onclick="event.preventDefault();event.stopPropagation();this.closest('.card-img-wrap')._mini(-1);">‹</button>
+    <button class="card-mini-arrow next" type="button"
+      onclick="event.preventDefault();event.stopPropagation();this.closest('.card-img-wrap')._mini(1);">›</button>
+    <div class="card-mini-dots"></div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-text">
+      <div class="card-eyebrow">{ev.status} · {ev.location}</div>
+      <h3 style={`color:${ev.brandColor};`}>{ev.name}</h3>
+      <div class="card-meta">{ev.meta}</div>
+      <p class="card-tagline">{ev.tagline}</p>
+      <span class="card-link">{ev.ctaLabel}</span>
+    </div>
+    <div class="card-logo-side">
+      <img src={`/logos/${ev.slug}-master-nobg.svg`} alt="" />
+    </div>
+  </div>
+</a>
+
+<script>
+  function setup(wrap: HTMLElement) {
+    const slides = wrap.querySelectorAll<HTMLElement>(".card-mini-slide");
+    const dotsContainer = wrap.querySelector<HTMLElement>(".card-mini-dots");
+    if (!dotsContainer || slides.length < 2) return;
+    let current = 0;
+    slides.forEach((_, i) => {
+      const d = document.createElement("div");
+      d.className = "card-mini-dot" + (i === 0 ? " active" : "");
+      dotsContainer.appendChild(d);
+    });
+    const dotEls = dotsContainer.querySelectorAll<HTMLElement>(".card-mini-dot");
+    (wrap as any)._mini = (dir: number) => {
+      slides[current].classList.remove("active");
+      dotEls[current].classList.remove("active");
+      current = (current + dir + slides.length) % slides.length;
+      slides[current].classList.add("active");
+      dotEls[current].classList.add("active");
+    };
+  }
+  document.querySelectorAll<HTMLElement>(".card-img-wrap").forEach(setup);
+</script>
+
+<style>
+  .card {
+    background: var(--branco);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: var(--preto);
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.12);
+  }
+
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--creme-escuro);
+    cursor: pointer;
+  }
+  .card-mini-slide {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  .card-mini-slide.active { opacity: 1; }
+  .card-img-wrap::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(26,26,26,0.3) 100%);
+    pointer-events: none;
+  }
+  .card-mini-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(245, 241, 234, 0.85);
+    color: var(--preto);
+    border: none;
+    width: 32px; height: 32px;
+    font-size: 18px;
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  .card:hover .card-mini-arrow { opacity: 1; }
+  .card-mini-arrow:hover { background: var(--telha); color: var(--creme); }
+  .card-mini-arrow.prev { left: 8px; }
+  .card-mini-arrow.next { right: 8px; }
+
+  .card-mini-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 2;
+  }
+  :global(.card-mini-dot) {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(245, 241, 234, 0.6);
+  }
+  :global(.card-mini-dot.active) { background: var(--creme); }
+
+  /* Card body: texto encostado ao logo à direita */
+  .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 24px 24px 28px;
+  }
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 320px;
+  }
+  .card-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--telha);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card-text h3 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .card-meta {
+    font-size: 14px;
+    color: var(--cinza);
+    margin-bottom: 16px;
+  }
+  .card-tagline {
+    font-size: 15px;
+    color: var(--preto);
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+  .card-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--telha);
+    font-weight: 500;
+  }
+  .card-link::after { content: " →"; }
+
+  .card-logo-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    flex-shrink: 0;
+  }
+  .card-logo-side img { width: 100%; height: auto; max-height: 220px; }
+
+  @media (max-width: 900px) {
+    .card-body { flex-direction: column; align-items: flex-start; }
+    .card-text { max-width: 100%; }
+    .card-logo-side { width: 100%; max-width: 240px; margin: 0 auto; }
+  }
+</style>

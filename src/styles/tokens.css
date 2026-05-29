@@ -1,0 +1,109 @@
+/* SINURBE — tokens da marca v2 (Maio 2026) */
+:root {
+  /* Cores oficiais do livro de marca v.01 — variante 01A telha */
+  --telha: #B8442E;
+  --telha-claro: #D4845F;
+  --telha-dark: #8F3522;
+  --creme: #F5F1EA;
+  --creme-escuro: #EBE5DA;
+  --preto: #1A1A1A;
+  --cinza: #6B6B6B;
+  --cinza-claro: #6B665E;
+  --branco: #FFFFFF;
+  --latao: #9C7A3D;
+  --line: #D8D2C4;
+
+  /* Aliases para compatibilidade */
+  --bg: var(--creme);
+  --bg-deep: var(--creme-escuro);
+  --ink: var(--preto);
+  --ink-soft: #3a3a3a;
+  --muted: var(--cinza);
+  --accent: var(--telha);
+  --accent-dark: var(--telha-dark);
+  --accent-soft: var(--telha-claro);
+
+  /* Tipografia */
+  --font-display: 'Archivo Black', sans-serif;
+  --font-body: 'Inter Tight', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-serif-italic: 'Playfair Display', serif;
+
+  /* Layout */
+  --container: 1400px;
+  --container-wide: 1640px;
+  --pad-x: 40px;
+  --pad-x-mobile: 24px;
+
+  /* Sombras / efeitos */
+  --shadow-card: 0 12px 32px rgba(26, 26, 26, 0.08);
+  --shadow-hero: 0 30px 80px rgba(0, 0, 0, 0.5);
+
+  /* Z-index */
+  --z-nav: 100;
+  --z-hero-content: 10;
+  --z-lightbox: 9999;
+}
+
+/* Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+img, svg { max-width: 100%; display: block; }
+
+/* Helpers de layout */
+.container { max-width: var(--container); margin: 0 auto; padding: 0 var(--pad-x); }
+.container-wide { max-width: var(--container-wide); margin: 0 auto; padding: 0 var(--pad-x); }
+
+/* Tipografia helpers */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--telha);
+  font-weight: 500;
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--telha);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+.lead {
+  font-size: clamp(16px, 1.4vw, 18px);
+  line-height: 1.55;
+  color: var(--cinza);
+  max-width: 62ch;
+}
+
+/* Mobile pad */
+@media (max-width: 900px) {
+  .container, .container-wide { padding: 0 var(--pad-x-mobile); }
+}
