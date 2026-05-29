@@ -3,26 +3,22 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://sinurbe.pt",
-  output: "static",
-  integrations: [
-    sitemap({
-      changefreq: "weekly",
-      priority: 0.8,
-      lastmod: new Date(),
-      i18n: {
-        defaultLocale: "pt",
-        locales: { pt: "pt-PT" },
-      },
-    }),
-  ],
-  build: {
-    inlineStylesheets: "auto",
-    assets: "_astro",
-  },
-  vite: {
+    site: "https://sinurbe.pt",
+    output: "static",
+    integrations: [
+          sitemap({
+                  changefreq: "weekly",
+                  priority: 0.8,
+                  lastmod: new Date(),
+          }),
+        ],
     build: {
-      chunkSizeWarningLimit: 1200,
+          inlineStylesheets: "auto",
+          assets: "_astro",
     },
-  },
+    vite: {
+          build: {
+                  chunkSizeWarningLimit: 1200,
+          },
+    },
 });
