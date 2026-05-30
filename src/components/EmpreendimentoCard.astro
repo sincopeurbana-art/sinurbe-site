@@ -67,9 +67,11 @@ const url = `/empreendimentos/${ev.slug}`;
     transition: transform 0.3s, box-shadow 0.3s;
     color: var(--preto);
   }
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.12);
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(26, 26, 26, 0.12);
+    }
   }
 
   .card-img-wrap {
@@ -105,10 +107,13 @@ const url = `/empreendimentos/${ev.slug}`;
     border-radius: 50%;
     z-index: 2;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.2s, background 0.2s;
   }
-  .card:hover .card-mini-arrow { opacity: 1; }
-  .card-mini-arrow:hover { background: var(--telha); color: var(--creme); }
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover .card-mini-arrow { opacity: 1; pointer-events: auto; }
+    .card-mini-arrow:hover { background: var(--telha); color: var(--creme); }
+  }
   .card-mini-arrow.prev { left: 8px; }
   .card-mini-arrow.next { right: 8px; }
 
