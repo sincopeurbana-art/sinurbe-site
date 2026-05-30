@@ -39,11 +39,51 @@ function isActive(matches: string[]) {
         <span class="sub">(chamada para rede móvel nacional)</span>
       </a>
     </div>
+
+    <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="nav-mobile" id="mobile-menu" aria-hidden="true">
+    <ul class="nav-mobile-links">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class={isActive(l.match) ? "active" : ""}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
+    <a class="nav-mobile-phone" href="tel:+351924184141">
+      <span class="num">+351 924 184 141</span>
+      <span class="sub">chamada para rede móvel nacional</span>
+    </a>
   </div>
 </nav>
 
 <script>
   const nav = document.querySelector<HTMLElement>(".nav");
+  const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+  const menu = document.querySelector<HTMLElement>(".nav-mobile");
+
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      menu.setAttribute("aria-hidden", String(open));
+      document.body.classList.toggle("nav-open", !open);
+    });
+    // Fechar ao clicar num link
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+        menu.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("nav-open");
+      });
+    });
+  }
+
   if (nav && nav.dataset.overHero === "true") {
     const onScroll = () => {
       if (window.scrollY > 60) document.body.classList.add("scrolled");
@@ -117,6 +157,37 @@ function isActive(matches: string[]) {
     letter-spacing: 0.5px;
   }
 
+  /* Botão hamburger (escondido em desktop) */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--preto);
+    margin: 0 auto;
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.2s ease, background 0.2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Drawer mobile (escondido em desktop) */
+  .nav-mobile {
+    display: none;
+  }
+
   /* Nav transparente sobre o hero */
   :global(body.has-fs-hero) .nav[data-over-hero="true"] {
     background: rgba(245, 241, 234, 0);
@@ -130,6 +201,7 @@ function isActive(matches: string[]) {
   :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-links a.active { color: var(--telha-claro); }
   :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-phone .num { color: #FFF; }
   :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-phone .sub { color: rgba(255, 255, 255, 0.65); }
+  :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-toggle span { background: #FFF; }
 
   :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] {
     background: rgba(245, 241, 234, 0.96);
@@ -143,11 +215,76 @@ function isActive(matches: string[]) {
   :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-links a.active { color: var(--telha); }
   :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-phone .num { color: var(--preto); }
   :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-phone .sub { color: var(--cinza); }
+  :global(body.has-fs-hero.scrolled) .nav[data-over-hero="true"] .nav-toggle span { background: var(--preto); }
 
+  /* Mobile: esconder links/phone inline, mostrar hamburger e drawer */
   @media (max-width: 900px) {
-    .nav-inner { padding: 16px var(--pad-x-mobile); }
-    .nav-links { gap: 20px; }
-    .nav-phone { display: none; }
+    .nav-inner { padding: 14px var(--pad-x-mobile); }
     .logo { font-size: 26px; }
+    .nav-right { display: none; }
+    .nav-toggle { display: flex; }
+
+    /* Drawer */
+    .nav-mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 12px var(--pad-x-mobile) 28px;
+      background: rgba(245, 241, 234, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(26, 26, 26, 0.08);
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
+    }
+    .nav-mobile[aria-hidden="false"] {
+      max-height: 80vh;
+      opacity: 1;
+      padding-top: 18px;
+    }
+    .nav-mobile-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-mobile-links a {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--preto);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.06);
+    }
+    .nav-mobile-links a.active { color: var(--telha); }
+    .nav-mobile-phone {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-top: 6px;
+    }
+    .nav-mobile-phone .num {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--telha);
+      letter-spacing: 0.3px;
+    }
+    .nav-mobile-phone .sub {
+      font-size: 11px;
+      color: var(--cinza);
+      letter-spacing: 0.4px;
+    }
+
+    /* Em hero overlay (texto branco), o drawer mantém-se claro para legibilidade */
+    :global(body.has-fs-hero) .nav[data-over-hero="true"] .nav-mobile {
+      background: rgba(245, 241, 234, 0.98);
+    }
   }
+
+  /* Bloquear scroll quando menu aberto */
+  :global(body.nav-open) { overflow: hidden; }
 </style>
