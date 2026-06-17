@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Rogério;Eduardo;;;
+FN:Eduardo Rogério
+ORG:Síncope Urbana Unipessoal Lda;Empreendimentos imobiliários
+TITLE:Administrador
+TEL;TYPE=CELL,VOICE:+351924184141
+EMAIL;TYPE=WORK:ceo@sinurbe.pt
+URL:https://sinurbe.pt
+ADR;TYPE=WORK:;;Avenida da Liberdade 224\, 2º;Lisboa;;1250-148;Portugal
+END:VCARD

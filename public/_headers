@@ -23,3 +23,9 @@
   Cache-Control: public, max-age=604800
 /favicon.svg
   Cache-Control: public, max-age=604800
+
+# vCard do cartão de visita (QR code) — forçar Content-Type correto (nosniff está ativo)
+/contacto/eduardo.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: inline; filename="eduardo.vcf"
+  Cache-Control: public, max-age=86400
