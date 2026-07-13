@@ -6,7 +6,7 @@ import EmpreendimentoCard from "../components/EmpreendimentoCard.astro";
 import Pilares from "../components/Pilares.astro";
 import CtaBlock from "../components/CtaBlock.astro";
 import Footer from "../components/Footer.astro";
-import { empreendimentos } from "../data/empreendimentos";
+import { empreendimentosAtivos as empreendimentos } from "../data/empreendimentos";
 
 const slides = [
   {
@@ -22,14 +22,14 @@ const slides = [
   {
     image: "/fotos/pateo-gastao/imagem-frente-predio.png",
     eyebrow: "Lisboa · Portfólio SINURBE",
-    title: "Seis empreendimentos.<br><strong>Um único padrão</strong> de qualidade.",
+    title: "Dois empreendimentos.<br><strong>Um único padrão</strong> de qualidade.",
   },
 ];
 ---
 
 <Base
   title="SINURBE — Reabilitação urbana premium em Lisboa"
-  description="Promoção imobiliária premium em Lisboa. Empreendimentos próprios em Beato, Belém, Estrela, Loures, Avenidas Novas e São Bento. Atendimento personalizado e construção de excelência."
+  description="Promoção imobiliária premium em Lisboa. Empreendimentos próprios no Beato e em Belém. Atendimento personalizado e construção de excelência."
 >
   <Nav overHero={true} pathname={Astro.url.pathname} />
 

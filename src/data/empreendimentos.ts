@@ -26,6 +26,8 @@ export interface Empreendimento {
   caracteristicas: { icon: string; label: string }[];
   ctaLabel: string;
   realProject?: boolean;
+  /** true = arquivado (não aparece no site). Apagar a linha para reativar. */
+  arquivado?: boolean;
 }
 
 const f = (folder: string, file: string) => `/fotos/${folder}/${file}`;
@@ -72,6 +74,7 @@ export const empreendimentos: Empreendimento[] = [
   },
   {
     slug: "pateo-avenidas",
+    arquivado: true, // ← apagar esta linha para voltar a pôr no site
     name: "Páteo Avenidas",
     location: "Avenidas Novas, Lisboa",
     status: "Lançamento 2027",
@@ -149,6 +152,7 @@ export const empreendimentos: Empreendimento[] = [
   },
   {
     slug: "pateo-estrela",
+    arquivado: true, // ← apagar esta linha para voltar a pôr no site
     name: "Páteo Estrela",
     location: "Estrela, Lisboa",
     status: "Lançamento 2027",
@@ -187,6 +191,7 @@ export const empreendimentos: Empreendimento[] = [
   },
   {
     slug: "pateo-loures",
+    arquivado: true, // ← apagar esta linha para voltar a pôr no site
     name: "Páteo Loures",
     location: "Loures",
     status: "Concluído",
@@ -225,6 +230,7 @@ export const empreendimentos: Empreendimento[] = [
   },
   {
     slug: "pateo-bento",
+    arquivado: true, // ← apagar esta linha para voltar a pôr no site
     name: "Páteo Bento",
     location: "São Bento, Lisboa",
     status: "Em construção",
@@ -263,8 +269,11 @@ export const empreendimentos: Empreendimento[] = [
   },
 ];
 
+/** Só os empreendimentos visíveis no site (não arquivados). */
+export const empreendimentosAtivos = empreendimentos.filter((e) => !e.arquivado);
+
 export const getEmpreendimento = (slug: string) =>
-  empreendimentos.find((e) => e.slug === slug);
+  empreendimentosAtivos.find((e) => e.slug === slug);
 
 /**
  * Devolve a lista final de empreendimentos.
@@ -277,11 +286,11 @@ export async function getEmpreendimentos(): Promise<Empreendimento[]> {
   try {
     const { getEmpreendimentosFromNotion } = await import("./notion");
     const fromNotion = await getEmpreendimentosFromNotion();
-    if (fromNotion && fromNotion.length > 0) return fromNotion;
+    if (fromNotion && fromNotion.length > 0) return fromNotion.filter((e) => !e.arquivado);
   } catch {
     /* fallback abaixo */
   }
-  return empreendimentos;
+  return empreendimentosAtivos;
 }
 
 export async function getEmpreendimentoBySlug(slug: string): Promise<Empreendimento | undefined> {

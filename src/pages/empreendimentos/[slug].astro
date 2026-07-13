@@ -6,7 +6,7 @@ import CaracteristicasIcons from "../../components/CaracteristicasIcons.astro";
 import ContactCard from "../../components/ContactCard.astro";
 import Gallery from "../../components/Gallery.astro";
 import Footer from "../../components/Footer.astro";
-import { empreendimentos, getEmpreendimento } from "../../data/empreendimentos";
+import { empreendimentosAtivos as empreendimentos, getEmpreendimento } from "../../data/empreendimentos";
 
 export function getStaticPaths() {
   return empreendimentos.map((ev) => ({

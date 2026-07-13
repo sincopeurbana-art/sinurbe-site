@@ -4,13 +4,13 @@ import Nav from "../../components/Nav.astro";
 import HeroFullscreen from "../../components/HeroFullscreen.astro";
 import EmpreendimentoCard from "../../components/EmpreendimentoCard.astro";
 import Footer from "../../components/Footer.astro";
-import { empreendimentos } from "../../data/empreendimentos";
+import { empreendimentosAtivos as empreendimentos } from "../../data/empreendimentos";
 
 const slides = [
   {
     image: "/fotos/pateo-gastao/imagem-frente-predio.png",
     eyebrow: "Portfólio · Lisboa",
-    title: "Seis empreendimentos.<br><strong>Um único padrão</strong>.",
+    title: "Dois empreendimentos.<br><strong>Um único padrão</strong>.",
   },
   {
     image: "/fotos/pateo-belem/area-piscina-por-do-sol.png",
@@ -18,7 +18,7 @@ const slides = [
     title: "Cada projeto<br>responde ao <strong>seu lugar</strong>.",
   },
   {
-    image: "/fotos/pateo-estrela/duplex-vista-rio.png",
+    image: "/fotos/pateo-gastao/aguas-furtadas.png",
     eyebrow: "Reabilitação urbana",
     title: "Vistas sobre o <strong>Tejo</strong>,<br>endereços únicos.",
   },
@@ -26,8 +26,8 @@ const slides = [
 ---
 
 <Base
-  title="Empreendimentos SINURBE — 6 endereços em Lisboa"
-  description="Portfólio SINURBE: 6 empreendimentos premium em Lisboa — Beato, Belém, Estrela, Loures, Avenidas Novas e São Bento. Reabilitação urbana com vista, qualidade e atendimento."
+  title="Empreendimentos SINURBE — Beato e Belém, Lisboa"
+  description="Portfólio SINURBE: empreendimentos premium em Lisboa — Beato e Belém. Reabilitação urbana com vista, qualidade e atendimento."
 >
   <Nav overHero={true} pathname={Astro.url.pathname} />
 
