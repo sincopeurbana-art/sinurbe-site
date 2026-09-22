@@ -3,11 +3,22 @@
 
 # Redirecionar URLs antigos para os novos slugs
 /empreendimentos/beato                /empreendimentos/pateo-gastao   301
-/empreendimentos/avenidas-novas       /empreendimentos/pateo-avenidas 301
 /empreendimentos/belem                /empreendimentos/pateo-belem    301
-/empreendimentos/estrela              /empreendimentos/pateo-estrela  301
-/empreendimentos/loures               /empreendimentos/pateo-loures   301
-/empreendimentos/sao-bento            /empreendimentos/pateo-bento    301
+
+# Empreendimentos ARQUIVADOS -> lista (301). Para reativar um: apagar as linhas dele aqui
+# e a linha `arquivado: true` em src/data/empreendimentos.ts
+/empreendimentos/pateo-avenidas       /empreendimentos/   301
+/empreendimentos/pateo-avenidas/      /empreendimentos/   301
+/empreendimentos/avenidas-novas       /empreendimentos/   301
+/empreendimentos/pateo-estrela        /empreendimentos/   301
+/empreendimentos/pateo-estrela/       /empreendimentos/   301
+/empreendimentos/estrela              /empreendimentos/   301
+/empreendimentos/pateo-loures         /empreendimentos/   301
+/empreendimentos/pateo-loures/        /empreendimentos/   301
+/empreendimentos/loures               /empreendimentos/   301
+/empreendimentos/pateo-bento          /empreendimentos/   301
+/empreendimentos/pateo-bento/         /empreendimentos/   301
+/empreendimentos/sao-bento            /empreendimentos/   301
 
 # Alias úteis
 /portfolio                            /empreendimentos                301
