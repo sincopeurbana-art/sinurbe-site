@@ -1,0 +1,74 @@
+---
+/**
+ * Página 404 — Cloudflare Pages serve dist/404.html com código HTTP 404
+ * para qualquer URL que não exista (em vez de mostrar a home).
+ */
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Base
+  title="Página não encontrada — SINURBE"
+  description="A página que procura não existe ou foi removida."
+>
+  <Nav pathname="/404" />
+
+  <main class="nf">
+    <div class="container nf-inner">
+      <div class="section-label">Erro 404</div>
+      <h1 class="nf-title">Esta morada<br><span>não existe.</span></h1>
+      <p class="nf-text">
+        A página que procura foi removida ou o endereço está incorreto.
+        Os nossos empreendimentos continuam no mesmo sítio.
+      </p>
+      <div class="nf-actions">
+        <a class="nf-btn nf-btn-primary" href="/empreendimentos/">Ver empreendimentos</a>
+        <a class="nf-btn nf-btn-ghost" href="/">Ir para o início</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .nf {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 160px 0 100px;
+    background: var(--creme);
+  }
+  .nf-title {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 7vw, 88px);
+    line-height: 1.02;
+    color: var(--preto);
+    margin: 16px 0 24px;
+  }
+  .nf-title span { color: var(--telha); }
+  .nf-text {
+    max-width: 520px;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin-bottom: 40px;
+  }
+  .nf-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .nf-btn {
+    display: inline-block;
+    padding: 16px 28px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nf-btn-primary { background: var(--telha); color: var(--creme); }
+  .nf-btn-primary:hover { background: var(--telha-dark); }
+  .nf-btn-ghost { border: 1px solid var(--preto); color: var(--preto); }
+  .nf-btn-ghost:hover { background: var(--preto); color: var(--creme); }
+  @media (max-width: 700px) {
+    .nf { padding: 120px 0 80px; }
+    .container { padding: 0 var(--pad-x-mobile); }
+  }
+</style>
